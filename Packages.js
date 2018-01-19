@@ -36,7 +36,7 @@ for (let i = 0; i < n; i += 1) {
 
     obj[left].push(right);
 }
-print(obj);
+// print(obj);
 
 const dfs = (vertex, result, used) => {
     if (obj[vertex]) {

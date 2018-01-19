@@ -1,40 +1,61 @@
 const getGets = (arr) => {
-    let indexes = 0;
+    let index = 0;
+
     return () => {
-        const toReturn = arr[indexes];
-        indexes += 1;
+        const toReturn = arr[index];
+        index += 1;
         return toReturn;
     };
 };
-const gets = this.gets || getGets([
+// this is the test
+const test = [
     '7',
-    '8 4 7 5 6 10 9',
-]);
-// let gets = this.gets || require('readline-sync').question;
+    '7 1 1 2 3 1',
+];
+
+const gets = this.gets || getGets(test);
 const print = this.print || console.log;
 
-let n = +gets();
-let arr = gets().split(' ').map(Number);
+const n = +gets();
+const arr = gets().split(' ').map(Number);
+
+let first = Number.MAX_SAFE_INTEGER;
+let last = Number.MAX_SAFE_INTEGER;
 let days = 0;
-
-while (arr.length > 1) {
-    let arr2 = [];
-    let counter = 0;
-    // print(arr);
-    for (let i = arr.length - 1; i >= 0; i -= 1) {
-        if (arr[i] > 0 && arr[i] > arr[i - 1]) {
-            counter += 1;
-            // arr.splice(i, 1);
-        } else {
-            arr2.push(arr[i]);
-        }
-    }
-
-    if (counter > 0) {
-        days += 1;
-    } else {
+let key = false;
+let currentBest = Number.MIN_SAFE_INTEGER;
+for (let i = 1; i < n; i += 1) {
+    if (arr[i] > arr[i - 1]) {
+        days = 1;
+        key = true;
         break;
     }
-    arr = arr2.reverse();
 }
-print(days);
+if (key) {
+    for (let i = 1; i < n; i += 1) {
+        if (arr[i] < arr[i - 1]) {
+            if (arr[i] === first || arr[i] < first) {
+                first = arr[i];
+                last = Number.MAX_SAFE_INTEGER;
+                if (days > currentBest) {
+                    currentBest = days;
+                }
+                days = 1;
+            } else if (arr[i] === last) {
+                days += 1;
+            } else if (arr[i] < last && arr[i] > first) {
+                days += 1;
+                last = arr[i];
+            } else if (arr[i] > last) {
+                last = arr[i];
+            }
+        } else if (arr[i] === arr[i - 1] && arr[i] > first) {
+            days += 1;
+        }
+    }
+}
+if (days > currentBest) {
+    print(days);
+} else {
+    print(currentBest);
+}

@@ -28,8 +28,8 @@ const gets = this.gets || getGets([
 const print = this.print || console.log;
 
 const [n, m] = gets().split(' ').map(Number);
-let matrix1 = [];
-let matrix2 = [];
+const matrix1 = [];
+const matrix2 = [];
 let p1boats = 0;
 let p2boats = 0;
 for (let i = 0; i < n; i += 1) {
