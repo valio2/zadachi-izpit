@@ -26,17 +26,14 @@ const print = this.print || console.log;
 
 const n = +gets();
 const obj = {};
-// const dependencies = {};
 for (let i = 0; i < n; i += 1) {
     const [left, right] = gets().split(' ').map(Number);
 
     if (!obj[left]) {
         obj[left] = [];
     }
-
     obj[left].push(right);
 }
-// print(obj);
 
 const dfs = (vertex, result, used) => {
     if (obj[vertex]) {
@@ -56,6 +53,7 @@ for (let j = 0; j < m; j += 1) {
     const vertex = +gets();
     const result = [];
     const used = new Set();
+    
     result.push(vertex);
 
     dfs(vertex, result, used);
